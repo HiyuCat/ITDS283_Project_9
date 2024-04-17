@@ -3,12 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_analog_clock/flutter_analog_clock.dart';
 import 'alarm_page.dart';
+import 'Scheduler_Calendar.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,12 +20,14 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark, // Set the overall theme brightness to dark
         primarySwatch: Colors.blue,
       ),
-      home: ClockPage(),
+      home: const ClockPage(),
     );
   }
 }
 
 class ClockPage extends StatefulWidget {
+  const ClockPage({super.key});
+
   @override
   _ClockPageState createState() => _ClockPageState();
 }
@@ -35,7 +40,7 @@ class _ClockPageState extends State<ClockPage> {
     super.initState();
     _updateTime();
     // Update the time every second
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         _updateTime();
       });
@@ -58,17 +63,17 @@ class _ClockPageState extends State<ClockPage> {
                 MaterialPageRoute(builder: (context) => AlarmPage()),
               );
             },
-            child: Column(
+            child: const Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: EdgeInsets.all(4.0),
                   child: Icon(
                     Icons.timer,
                     color: Colors.white,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(2.0),
+                  padding: EdgeInsets.all(2.0),
                   child: Text(
                     "Timer",
                     style: TextStyle(
@@ -80,11 +85,11 @@ class _ClockPageState extends State<ClockPage> {
               ],
             ),
             style: ElevatedButton.styleFrom(
-              shape: CircleBorder(),
+              shape: const CircleBorder(),
               backgroundColor:
                   const Color.fromARGB(255, 113, 113, 113), // <-- Button color
               foregroundColor:
-                  Color.fromARGB(255, 153, 8, 87), // <-- Splash color
+                  const Color.fromARGB(255, 153, 8, 87), // <-- Splash color
             ),
           ),
         ],
@@ -122,14 +127,33 @@ class _ClockPageState extends State<ClockPage> {
           ),
         ),
       ),
-      bottomNavigationBar: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AlarmPage()),
-          );
-        },
-        child: Text('Set Alarm'),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AlarmPage()),
+                );
+              },
+              icon: const Icon(IconData(0xee66, fontFamily: 'MaterialIcons'),),
+              
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ScheduState()),
+                );
+              },
+              icon: const Icon(
+                IconData(0xf06bb, fontFamily: 'MaterialIcons'),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
