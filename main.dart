@@ -138,8 +138,15 @@ class _ClockPageState extends State<ClockPage> {
                   MaterialPageRoute(builder: (context) => AlarmPage()),
                 );
               },
-              icon: const Icon(IconData(0xee66, fontFamily: 'MaterialIcons'),),
-              
+              icon: const Icon(
+                IconData(0xee66, fontFamily: 'MaterialIcons'),
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                IconData(0xe609, fontFamily: 'MaterialIcons'),
+              ),
             ),
             IconButton(
               onPressed: () {
@@ -150,6 +157,12 @@ class _ClockPageState extends State<ClockPage> {
               },
               icon: const Icon(
                 IconData(0xf06bb, fontFamily: 'MaterialIcons'),
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                IconData(0xf0164, fontFamily: 'MaterialIcons'),
               ),
             ),
           ],
