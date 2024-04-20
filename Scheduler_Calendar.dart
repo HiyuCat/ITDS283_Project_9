@@ -1,3 +1,8 @@
+import 'package:alarm/alarm_page.dart';
+
+import 'package:alarm/main.dart';
+import 'package:alarm/setting.dart';
+import 'package:alarm/timezone.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -44,7 +49,37 @@ class _ScheduState extends State<ScheduState> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Calendar'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  width: 48, // Adjust size as needed
+                  height: 48, // Adjust size as needed
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color.fromARGB(255, 162, 20, 67),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AlarmPage()),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.schedule,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -78,9 +113,11 @@ class _ScheduState extends State<ScheduState> {
                           } else {
                             _events[_selectedDay!]!.add(event);
                           }
-                          _selectedEvents.value = _getEventsForDay(_selectedDay!);
+                          _selectedEvents.value =
+                              _getEventsForDay(_selectedDay!);
                         }
                       });
+
                       _eventController.clear();
                       Navigator.pop(context);
                     },
@@ -92,6 +129,7 @@ class _ScheduState extends State<ScheduState> {
           );
         },
         child: const Icon(Icons.add),
+        backgroundColor: Color.fromARGB(255, 190, 9, 63),
       ),
       body: Column(
         children: [
@@ -125,7 +163,8 @@ class _ScheduState extends State<ScheduState> {
                   itemCount: value.length,
                   itemBuilder: (context, index) {
                     return Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 4),
                       decoration: BoxDecoration(
                         border: Border.all(),
                         borderRadius: BorderRadius.circular(12),
@@ -141,6 +180,57 @@ class _ScheduState extends State<ScheduState> {
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => ClockPage()),
+                );
+              },
+              icon: const Icon(
+                IconData(0xee66, fontFamily: 'MaterialIcons'),
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => TimeZoneClock()),
+                );
+              },
+              icon: const Icon(
+                IconData(0xe609, fontFamily: 'MaterialIcons'),
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => AlarmPage()),
+                );
+              },
+              icon: const Icon(
+                IconData(0xf06bb, fontFamily: 'MaterialIcons'),
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingPage()),
+                );
+              },
+              icon: const Icon(
+                IconData(0xf0164, fontFamily: 'MaterialIcons'),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
