@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:alarm/Scheduler_Calendar.dart';
 import 'package:alarm/main.dart';
 import 'package:alarm/setting.dart';
 import 'package:alarm/timezone.dart';
@@ -49,8 +50,9 @@ class _AlarmPageState extends State<AlarmPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
               'Current Time:',
@@ -59,6 +61,32 @@ class _AlarmPageState extends State<AlarmPage> {
             Text(
               _currentTime,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  width: 48, // Adjust size as needed
+                  height: 48, // Adjust size as needed
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color.fromARGB(255, 162, 20, 67),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ScheduState()),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.schedule,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
